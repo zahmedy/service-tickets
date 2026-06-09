@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+        textarea {
+        width: 300px;
+        height: 100px;
+        padding: 10px;
+        }
+        </style>
         <title> Service Tickets </title>
     </head>
     <body>
         <h1>Welcome to Z-tickets</h1>
         <p>In this tool you could create Tickets and manage them for easy work!</p>
+        <div class="ticket-form"></div>
+            <label>Title:</label>
+            <input id="ticketTitle" type="text" placeholder="Router on fire!">
+            <br>
+            <label for="description">Description: </label>
+            <br>
+           <textarea placeholder="Describe the problem"></textarea>
+            <button style="display: block; margin-top: 10px;" id="createTicket">
+                Create Ticket
+            </button>
+        </div>
+        <style>
+            .ticket-form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 250px;
+            }
+        </style>
+        
+        <script>
+            const button = document.getElementById("createTicket")
+        
+            button.addEventListener("click", () => {
+                alert("Ticket created!");
+                alert(input.value);
+            });
+        </script>
+    
     </body>
 </html>
