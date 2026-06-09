@@ -1,38 +1,13 @@
-// let tickets = []
-
-// function addTicket(title, customer) {
-//     const ticket = {
-//         id: Date.now(),
-//         title,
-//         customer,
-//         status: "New",
-//         priority: "Medium",
-//         createdAt: new Date().toISOString()
-//     };
-
-//     tickets.push(ticket);
-//     renderTickets();
-
-// }
-
-// Server setup
 const express = require("express");
 const path = require("path");
-
-const app = express()
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.listen(3000, () => {
-    console.log("http://localhost:3000");
-})
-
-// Database setup
 const Database = require("better-sqlite3");
 
+const app = express();
 const db = new Database("tickets.db");
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use(express.static(__dirname));
 
 db.exec(`
     CREATE TABLE IF NOT EXISTS tickets (
@@ -42,10 +17,26 @@ db.exec(`
     )
 `);
 
-// db.prepare(
-//     "INSERT INTO tickets (title, description) VALUES (?, ?)"
-// ).run("Computer issue","Computer will not start");
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 
-// const tickets = db.prepare("SELECT * FROM tickets").all();
+app.post("/tickets", (req, res) => {
+    const { title, description } = req.body;
 
-// console.log(tickets);
+    const result = db.prepare(`
+        INSERT INTO tickets (title, description)
+        VALUES (? , ?)    
+    `).run(title, description);
+
+    res.json({ id: result.lastInsertRowid });
+});
+
+app.get("/tickets", (req, res) => {
+    const tickets = db.prepare("SELECT * FROM tickets").all();
+    res.json(tickets);
+});
+
+app.listen(port, () => {
+    console.log(`http://localhost:${port}`);
+});

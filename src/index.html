@@ -1,44 +1,68 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-        textarea {
-        width: 300px;
-        height: 100px;
-        padding: 10px;
-        }
-        </style>
+        <link rel="stylesheet" href="style.css">
         <title> Service Tickets </title>
     </head>
     <body>
         <h1>Welcome to Z-tickets</h1>
         <p>In this tool you could create Tickets and manage them for easy work!</p>
-        <div class="ticket-form"></div>
-            <label>Title:</label>
-            <input id="ticketTitle" type="text" placeholder="Router on fire!">
-            <br>
+        <div class="ticket-form">
+            <label for="title">Title:</label>
+            <input id="title" type="text" placeholder="Router on fire!">
             <label for="description">Description: </label>
-            <br>
-           <textarea placeholder="Describe the problem"></textarea>
-            <button style="display: block; margin-top: 10px;" id="createTicket">
+            <textarea id="description" placeholder="Describe the problem"></textarea>
+            <button id="createTicket">
                 Create Ticket
             </button>
         </div>
-        <style>
-            .ticket-form {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                width: 250px;
-            }
-        </style>
+        <h2>Tickets</h2>
+        <div id="ticketList"></div>
         
         <script>
             const button = document.getElementById("createTicket")
+
+            async function displayTickets() {
+                const response = await fetch("/tickets");
+                const tickets = await response.json();
+
+                const ticketList = document.getElementById("ticketList");
+                ticketList.innerHTML = "";
+
+                tickets.forEach((ticket) => {
+                    const ticketElement = document.createElement("div")
+                    
+                    ticketElement.innerHTML = `
+                        <h3>${ticket.title}</h3>
+                        <p>${ticket.description}</p>
+                    `;
+
+                    ticketList.appendChild(ticketElement);
+                });
+
+            }
+
+            displayTickets();
         
-            button.addEventListener("click", () => {
+            button.addEventListener("click", async () => {
+                const title = document.getElementById("title").value;
+                const description = document.getElementById("description").value;
+
+                const response = await fetch("/tickets", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ title, description })
+                });
+
+                if (!response.ok) {
+                    alert("Could not create ticket");
+                    return;
+                }
+
                 alert("Ticket created!");
-                alert(input.value);
+                displayTickets();
             });
         </script>
     
