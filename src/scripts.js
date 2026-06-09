@@ -9,10 +9,12 @@ async function displayTickets() {
 
     tickets.forEach((ticket) => {
         const ticketElement = document.createElement("div")
+        ticketElement.classList.add("ticket-card");
         
         ticketElement.innerHTML = `
-            <h3>${ticket.title}</h3>
-            <p>${ticket.description}</p>
+            <span class="ticket-id">Ticket #${ticket.id}</span>
+            <h3 class="ticket-title">${ticket.title}</h3>
+            <p class="ticket-description">${ticket.description}</p>
         `;
 
         ticketList.appendChild(ticketElement);

@@ -1,12 +1,51 @@
 textarea {
-        width: 300px;
-        height: 100px;
-        padding: 10px;
-        }
+    width: 300px;
+    height: 100px;
+    padding: 10px;
+}
 
 .ticket-form {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                width: 250px;
-            }
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 250px;
+}
+
+#ticketList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    max-width: 900px;
+}
+
+.ticket-card {
+    padding: 20px;
+    border: 1px solid #dbe2ea;
+    border-left: 5px solid #2563eb;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.ticket-id {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ticket-title {
+    margin: 0 0 8px;
+    color: #172033;
+}
+
+.ticket-description {
+    margin: 0;
+    color: #526070;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
