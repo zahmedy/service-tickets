@@ -6,11 +6,11 @@ A small web app where users can create, edit, search, and manage service tickets
 ### Ticket list
     Show tickets in a table/card layout
     Fields:
-    title
-    customer name
-    status: New, In Progress, Done
-    priority: Low, Medium, High
-    created date
+        - title
+        - customer name
+        - status: New, In Progress, Done
+        - priority: Low, Medium, High
+        - created date
 ### Create ticket form
     Add a new ticket
     Validate required fields

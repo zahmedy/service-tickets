@@ -13,7 +13,12 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS tickets (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
-        description TEXT NOT NULL
+        username TEXT NOT NULL,
+        status TEXT NOT NULL DEFAULT 'New'
+            CHECK (status IN ('New', 'In Progress', 'Done))
+        priority TEXT NOT NULL DEFAULT 'Low'
+            CHECK (priority IN ('Low', 'Medium', 'High'))
+        created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
 `);
 
