@@ -22,8 +22,14 @@ async function displayTickets() {
             <p class="ticket-status">Status: ${ticket.status}</p>
             <p class="ticket-priority">Priority: ${ticket.priority}</p>
             <p class="ticket-username">Username: ${ticket.username}</p>
-            <button id="edit-ticket" class="ticket-edit">Edit</button>
+            <button class="ticket-edit">Edit</button>
         `;
+
+        const editButton = ticketElement.querySelector(".ticket-edit");
+
+        editButton.addEventListener("click", () => {
+            window.location.href = `/edit?id=${ticket.id}`;
+        });
 
         ticketList.appendChild(ticketElement);
     });

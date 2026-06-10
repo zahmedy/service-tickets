@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const Database = require("better-sqlite3");
+const { error } = require("console");
 
 const app = express();
 const db = new Database("tickets.db");
@@ -75,6 +76,20 @@ app.post("/api/tickets", (req, res) => {
 app.get("/api/tickets", (req, res) => {
     const tickets = db.prepare("SELECT * FROM tickets").all();
     res.json(tickets);
+});
+
+app.get("/api/ticket/:ticketId", (req, res) => {
+    const ticketId = req.params.ticketId;
+
+    const ticket = db
+        .prepare("SELECT * FROM tickets WHERE id = ?")
+        .get(ticketId);
+    
+    if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found"});
+    }
+
+    res.json(ticket);
 });
 
 app.listen(port, () => {
