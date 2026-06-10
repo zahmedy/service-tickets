@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+        <title> Create a Ticket </title>
+    </head>
+    <body>
+        <button id="welcome" class="header-button">Welcome to Z-tickets</button>
+        <p>In this tool you could create Tickets and manage them for easy work!</p>
+        
+        <div class="ticket-form">
+        <label for="title">Title:</label>
+        <input id="title" type="text" placeholder="Router on fire!">
+        <label for="description">Description: </label>
+        <textarea id="description" placeholder="Describe the problem"></textarea>
+        <label>Status: </label>
+        <select id="status" name="status">
+            <option value="New">New</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Done">Done</option>
+        </select>
+        <label>Priority: </label>
+        <select id="priority" name="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <label>Username:</label>
+        <input id="username" type="text" placeholder="Adam Mo">
+        <button id="createTicket">
+            Create Ticket
+        </button>
+        </div>
+        
+        
+        <script type="module" src="/scripts/createTicket.js"></script>
+    </body>
+</html>

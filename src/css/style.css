@@ -4,6 +4,16 @@ textarea {
     padding: 10px;
 }
 
+.header-button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 32px;
+  font-weight: bold;
+  color: #172033;
+  cursor: pointer;
+}
+
 .ticket-form {
     display: flex;
     flex-direction: column;
@@ -44,6 +54,34 @@ textarea {
 }
 
 .ticket-description {
+    margin: 0;
+    color: #526070;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.ticket-status {
+    margin: 0;
+    color: #526070;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.ticket-priority {
+    margin: 0;
+    color: #526070;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.ticket-username {
+    margin: 0;
+    color: #526070;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.ticket-edit {
     margin: 0;
     color: #526070;
     line-height: 1.5;
