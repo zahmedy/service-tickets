@@ -41,6 +41,8 @@ app.get("/edit", (req, res) => {
 });
 
 
+// API 
+
 app.put("/api/tickets/:id", (req, res) => {
     const id = req.params.id;
     const { title, description, status, priority, username } = req.body;
@@ -91,6 +93,7 @@ app.get("/api/ticket/:ticketId", (req, res) => {
 
     res.json(ticket);
 });
+
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
