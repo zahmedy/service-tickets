@@ -4,9 +4,16 @@ welcomeButton.addEventListener("click", async () => {
     window.location.href = "/"
 });
 
-async function displayTickets() {
-    const response = await fetch("/api/tickets");
-    const tickets = await response.json();
+export async function displayTickets(tickets) {
+    if (!tickets) {
+        const response = await fetch("/api/tickets");
+
+        if (!response.ok) {
+            return;
+        }
+
+        tickets = await response.json();
+    }
 
     const ticketList = document.getElementById("ticketList");
     ticketList.innerHTML = "";
@@ -33,7 +40,6 @@ async function displayTickets() {
 
         ticketList.appendChild(ticketElement);
     });
-
 }
 
 displayTickets();

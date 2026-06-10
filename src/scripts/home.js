@@ -1,16 +1,40 @@
+import { displayTickets } from "./showTickets.js";
+
 const welcomeButton = document.getElementById("welcome")
 
 welcomeButton.addEventListener("click", async () => {
     window.location.href = "/"
 });
 
-const createButton = document.getElementById("createPage")
+
+//SEACH
+
+const searchButton = document.getElementById("searchSubmit");
+
+searchButton.addEventListener("click", async () => {
+    const query = document.getElementById("search").value;
+    const searchText = query.toLowerCase();
+
+    const response = await fetch("/api/tickets");
+    const tickets = await response.json();
+
+    const foundTickets = tickets.filter((ticket) => 
+        ticket.username.toLowerCase().includes(searchText) ||
+        ticket.title.toLowerCase().includes(searchText)
+    );
+    
+    displayTickets(foundTickets);
+});
+
+//
+
+const createButton = document.getElementById("createPage");
 
 createButton.addEventListener("click", async () => {
     window.location.href = "/create";
 });
 
-const showButton = document.getElementById("showPage")
+const showButton = document.getElementById("showPage");
 
 showButton.addEventListener("click", async () => {
     window.location.href = "/tickets";
@@ -21,37 +45,37 @@ async function getTotal() {
     const tickets = await response.json();
 
     document.getElementById("totalTickets").textContent = tickets.length;
-}
+};
 
 async function getOpenCount() {
     const response = await fetch("/api/tickets");
     const tickets = await response.json();
 
-    total_open = 0
+    let totalOpen = 0
 
     tickets.forEach((ticket) => {
-        if (['New', 'In progress'].includes(ticket.status)){
-            total_open += 1;
+        if (['New', 'In Progress'].includes(ticket.status)){
+            totalOpen += 1;
         }
     });
     
-    document.getElementById("totalOpen").textContent = total_open;
-}
+    document.getElementById("totalOpen").textContent = totalOpen;
+};
 
 async function getHighTotal() {
     const response = await fetch("/api/tickets");
     const tickets = await response.json();
 
-    high_total = 0
+    let highTotal = 0
 
     tickets.forEach((ticket) => {
         if (ticket.priority === 'High') {
-            high_total += 1;
+            highTotal += 1;
         }
     });
 
-    document.getElementById("totalHigh").textContent = high_total;
-}
+    document.getElementById("totalHigh").textContent = highTotal;
+};
 
 getTotal();
 getOpenCount();

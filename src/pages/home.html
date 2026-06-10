@@ -9,23 +9,27 @@
         <p>In this tool you could create Tickets and manage them for easy work!</p>
         
         <!-- ### Basic dashboard
-        Count total tickets
-        Count open tickets
-        Count completed tickets
-        Count high-priority tickets -->
+        ### Search/filter
+        Search by customer or title
+        Filter by status
+        Sort by priority or date -->
 
+        <label>Search:</label>
+        <input id="search">
+        <button id="searchSubmit">Submit!</button>
+        <br>
+        <br>
         <label>Total Tickets:</label>
         <p id="totalTickets"></p>
         <label>Total Open:</label>
         <p id="totalOpen"></p>
         <label>Total High Priority:</label>
         <p id="totalHigh"></p>
-        
 
         <button id="showPage">Show All Tickets</button>
         <button id="createPage">Create a Ticket</button>
         
         
-        <script src="/scripts/home.js"></script>
+        <script type="module" src="/scripts/home.js"></script>
     </body>
 </html>
