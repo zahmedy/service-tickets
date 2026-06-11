@@ -1,5 +1,3 @@
-import { displayTickets } from "./showTickets.js";
-
 const welcomeButton = document.getElementById("welcome")
 
 welcomeButton.addEventListener("click", async () => {
@@ -13,17 +11,7 @@ const searchButton = document.getElementById("searchSubmit");
 
 searchButton.addEventListener("click", async () => {
     const query = document.getElementById("search").value;
-    const searchText = query.toLowerCase();
-
-    const response = await fetch("/api/tickets");
-    const tickets = await response.json();
-
-    const foundTickets = tickets.filter((ticket) => 
-        ticket.username.toLowerCase().includes(searchText) ||
-        ticket.title.toLowerCase().includes(searchText)
-    );
-    
-    displayTickets(foundTickets);
+    window.location.href = `/tickets?search=${encodeURIComponent(query)}`;
 });
 
 //

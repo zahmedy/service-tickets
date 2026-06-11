@@ -4,7 +4,7 @@ welcomeButton.addEventListener("click", async () => {
     window.location.href = "/"
 });
 
-export async function displayTickets(tickets) {
+async function displayTickets(tickets) {
     if (!tickets) {
         const response = await fetch("/api/tickets");
 
@@ -42,4 +42,32 @@ export async function displayTickets(tickets) {
     });
 }
 
-displayTickets();
+async function getTickets(searchText) {
+    const response = await fetch("/api/tickets");
+
+    if (!response.ok) {
+        return [];
+    }
+
+    let tickets = await response.json();
+
+    if (searchText) {
+        tickets = tickets.filter((ticket) => 
+            ticket.username.toLowerCase().includes(searchText.toLowerCase()) ||
+            ticket.title.toLowerCase().includes(searchText.toLowerCase())
+        );
+    }
+
+    return tickets;
+}
+// Display searched results 
+async function loadSearchTickets() {
+    const params = new URLSearchParams(window.location.search);
+    const searchText = params.get("search");
+
+    const tickets = await getTickets(searchText);
+
+    displayTickets(tickets);
+}
+
+loadSearchTickets();
