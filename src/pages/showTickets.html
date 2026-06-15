@@ -8,9 +8,28 @@
         <button id="welcome" class="header-button">Welcome to Z-tickets</button>
         <p>In this tool you could create Tickets and manage them for easy work!</p>
 
+        <!-- ### Basic dashboard
+        ### Search/filter
+        Search by customer or title
+        Filter by status
+        Sort by priority or date -->
+
+        <h2>Filter:</h2>
+        <select id="FilterStatus" name="status">
+            <option>Any</option>
+            <option>New</option>
+            <option>In Progress</option>
+            <option>Done</option>
+        </select>
+
+        <h2>Sort by priority:</h2>
+        <select id="priority">
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+        </select>
+
         <h2>Tickets</h2>
-
-
         <div id="ticketList"></div>
         <script src="/scripts/showTickets.js"></script>
         <script src="/scripts/editTicket.js"></script>

@@ -59,7 +59,7 @@ async function displayTickets(tickets) {
                 alert("Unable to connect to the server");
             }
         });
-
+        
         ticketList.appendChild(ticketElement);
     });
 }
@@ -82,6 +82,7 @@ async function getTickets(searchText) {
 
     return tickets;
 }
+
 // Display searched results 
 async function loadSearchTickets() {
     const params = new URLSearchParams(window.location.search);
@@ -93,3 +94,19 @@ async function loadSearchTickets() {
 }
 
 loadSearchTickets();
+
+async function filterTickets(filterStatus) {
+    let tickets = await getTickets()
+
+    tickets = tickets.filter(
+        (ticket) => filterStatus === "Any" || ticket.status === filterStatus
+    );
+
+    displayTickets(tickets);
+}
+
+const filterElement = document.getElementById("FilterStatus");
+
+filterElement.addEventListener("change", (event) => {
+    filterTickets(event.target.value)
+});
