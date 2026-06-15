@@ -13,6 +13,11 @@ button.addEventListener("click", async () => {
     const priority = document.getElementById("priority").value;
     const username = document.getElementById("username").value;
 
+    if (title === "" || username === "") {
+        alert("title and username are required!");
+        return;
+    }
+
     const response = await fetch("/api/tickets", {
         method: "POST",
         headers: {

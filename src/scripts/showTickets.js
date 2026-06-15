@@ -4,6 +4,7 @@ welcomeButtonShow.addEventListener("click", async () => {
     window.location.href = "/"
 });
 
+// Main functions ///////
 async function displayTickets(tickets) {
     if (!tickets) {
         const response = await fetch("/api/tickets");
@@ -29,6 +30,7 @@ async function displayTickets(tickets) {
             <p class="ticket-status">Status: ${ticket.status}</p>
             <p class="ticket-priority">Priority: ${ticket.priority}</p>
             <p class="ticket-username">Username: ${ticket.username}</p>
+            <p class="ticket-createdAt">Created At: ${ticket.created}</p>
             <button class="ticket-edit">Edit</button>
             <button class="ticket-delete">Delete</button>
         `;
@@ -59,11 +61,13 @@ async function displayTickets(tickets) {
                 alert("Unable to connect to the server");
             }
         });
-        
+
         ticketList.appendChild(ticketElement);
     });
 }
+////////////////////////
 
+// Helper functions ///////
 async function getTickets(searchText) {
     const response = await fetch("/api/tickets");
 
@@ -82,6 +86,7 @@ async function getTickets(searchText) {
 
     return tickets;
 }
+////////////////////////
 
 // Display searched results 
 async function loadSearchTickets() {
@@ -92,9 +97,11 @@ async function loadSearchTickets() {
 
     displayTickets(tickets);
 }
-
 loadSearchTickets();
+////////////////////////
 
+
+// Filter section ////////
 async function filterTickets(filterStatus) {
     let tickets = await getTickets()
 
@@ -110,3 +117,33 @@ const filterElement = document.getElementById("FilterStatus");
 filterElement.addEventListener("change", (event) => {
     filterTickets(event.target.value)
 });
+////////////////////////
+
+
+// Sort by priorty and date ////
+
+async function getSortedTickets(sortBy) {
+    let tickets = await getTickets();
+
+    if (sortBy === "Date") {
+        tickets.sort((a, b) => new Date(a.created) - new Date(b.created));
+    } else if (sortBy === "Priority") {
+        // const priorityOrder = {
+        //     High: 1,
+        //     Medium: 2,
+        //     Low: 3,
+        // };
+
+        tickets.sort((a, b) => a.priority.localeCompare(b.priority));
+    } 
+    
+    displayTickets(tickets);
+}
+
+const sortElement = document.getElementById("sort")
+
+sortElement.addEventListener("change", (event) => {
+    getSortedTickets(event.target.value)
+});
+
+////////////////////////
