@@ -1,6 +1,6 @@
-const welcomeButton = document.getElementById("welcome")
+const welcomeButtonCreate = document.getElementById("welcome")
 
-welcomeButton.addEventListener("click", async () => {
+welcomeButtonCreate.addEventListener("click", async () => {
     window.location.href = "/"
 });
 

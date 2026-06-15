@@ -1,6 +1,6 @@
-const welcomeButton = document.getElementById("welcome")
+const welcomeButtonShow = document.getElementById("welcome")
 
-welcomeButton.addEventListener("click", async () => {
+welcomeButtonShow.addEventListener("click", async () => {
     window.location.href = "/"
 });
 
@@ -30,12 +30,34 @@ async function displayTickets(tickets) {
             <p class="ticket-priority">Priority: ${ticket.priority}</p>
             <p class="ticket-username">Username: ${ticket.username}</p>
             <button class="ticket-edit">Edit</button>
+            <button class="ticket-delete">Delete</button>
         `;
 
         const editButton = ticketElement.querySelector(".ticket-edit");
 
         editButton.addEventListener("click", () => {
             window.location.href = `/edit?id=${ticket.id}`;
+        });
+
+        const deleteButton = ticketElement.querySelector(".ticket-delete");
+
+        deleteButton.addEventListener("click", async () => {
+            try {
+                const response = await fetch(`/api/tickets/${ticket.id}`, {
+                    method: 'DELETE',
+                });
+
+                if (!response.ok) {
+                    alert("Ticket could not be deleted");
+                    return;
+                }
+
+                alert(`Ticket ${ticket.id} was deleted!`);
+                ticketElement.remove();
+            } catch (error) {
+                console.error(error);
+                alert("Unable to connect to the server");
+            }
         });
 
         ticketList.appendChild(ticketElement);

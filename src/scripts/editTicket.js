@@ -1,6 +1,6 @@
-const welcomeButton = document.getElementById("welcome")
+const welcomeButtonEdit = document.getElementById("welcome")
 
-welcomeButton.addEventListener("click", async () => {
+welcomeButtonEdit.addEventListener("click", async () => {
     window.location.href = "/"
 });
 
@@ -40,7 +40,7 @@ saveButton.addEventListener("click", async () => {
 });
 
 async function getTicket() {
-    const response = await fetch(`/api/ticket/${ticketId}`);
+    const response = await fetch(`/api/tickets/${ticketId}`);
 
     if (response.status === 404) {
         return { error: "couldn't load ticket "}

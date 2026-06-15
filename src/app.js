@@ -80,7 +80,7 @@ app.get("/api/tickets", (req, res) => {
     res.json(tickets);
 });
 
-app.get("/api/ticket/:ticketId", (req, res) => {
+app.get("/api/tickets/:ticketId", (req, res) => {
     const ticketId = req.params.ticketId;
 
     const ticket = db
@@ -92,6 +92,20 @@ app.get("/api/ticket/:ticketId", (req, res) => {
     }
 
     res.json(ticket);
+});
+
+app.delete("/api/tickets/:ticketId", (req, res) => {
+    const ticketId = req.params.ticketId;
+
+    const result = db
+        .prepare("DELETE FROM tickets WHERE id = ?")
+        .run(ticketId);
+    
+    if (result.changes === 0) {
+        return res.status(404).json({ error: "Ticket not found"});
+    }
+
+    res.json({ success: true });
 });
 
 

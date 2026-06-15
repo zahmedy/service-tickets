@@ -87,3 +87,10 @@ textarea {
     line-height: 1.5;
     overflow-wrap: anywhere;
 }
+
+.ticket-delete {
+    margin: 0;
+    color: #526070;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
