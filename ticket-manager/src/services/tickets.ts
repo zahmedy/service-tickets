@@ -20,3 +20,17 @@ export async function deleteTicket(id: number): Promise<void> {
     throw new Error("Could not delete ticket");
   }
 }
+
+export async function createTicket(ticket: Ticket) {
+  const response = await fetch(`/api/tickets/${ticket.id}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      ticket,
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not create ticket");
+  }
+}

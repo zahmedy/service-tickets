@@ -4,6 +4,7 @@ import "./App.css";
 import TicketList from "./components/TicketList";
 import type { Ticket } from "./types/types";
 import { getTickets, deleteTicket } from "./services/tickets";
+import Home from "./components/Home";
 
 function App() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -33,7 +34,20 @@ function App() {
     }
   }
 
-  return <TicketList tickets={tickets} onDeleteTicket={handleDeleteTicket} />;
+  async function handleEditTicket() {
+    console.log("editing");
+  }
+
+  return (
+    <>
+      <Home />
+      <TicketList
+        tickets={tickets}
+        onDeleteTicket={handleDeleteTicket}
+        onEditTicket={handleEditTicket}
+      />
+    </>
+  );
 }
 
 export default App;
