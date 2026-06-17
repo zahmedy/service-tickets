@@ -89,6 +89,35 @@ button:not(.header-button):hover {
   box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
 }
 
+.ticket-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(760px, 100%);
+  margin-bottom: 18px;
+}
+
+.ticket-search {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #0f172a;
+  outline: none;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    background 0.16s ease;
+}
+
+.ticket-search:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
 .ticket-card {
   position: relative;
   display: grid;
@@ -259,6 +288,15 @@ button:not(.header-button):hover {
 
   .ticket-card {
     grid-template-columns: 1fr;
+  }
+
+  .ticket-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ticket-toolbar button {
+    width: 100%;
   }
 
   .ticket-edit,

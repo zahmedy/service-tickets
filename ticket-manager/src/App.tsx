@@ -11,6 +11,17 @@ import TicketEdit from "./components/TicketEdit";
 function App() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [ticketId, setTicketId] = useState(0);
+  const [page, setPage] = useState<"home" | "tickets" | "create" | "edit">(
+    "tickets",
+  );
+  const [search, setSearch] = useState("");
+
+  const filteredTickets = tickets.filter(
+    (ticket) =>
+      ticket.title.toLowerCase().includes(search.toLowerCase()) ||
+      ticket.description.toLowerCase().includes(search.toLowerCase()) ||
+      ticket.username.toLowerCase().includes(search.toLowerCase()),
+  );
 
   useEffect(() => {
     async function loadTickets() {
@@ -48,10 +59,6 @@ function App() {
     setPage("edit");
   }
 
-  const [page, setPage] = useState<"home" | "tickets" | "create" | "edit">(
-    "home",
-  );
-
   async function refreshTickets() {
     const tickets = await getTickets();
     setTickets(tickets);
@@ -60,10 +67,19 @@ function App() {
   return (
     <div>
       <Home onOpenTickets={() => setPage("tickets")} />
-      <button onClick={() => setPage("create")}>Create Ticket</button>
+      <div className="ticket-toolbar">
+        <input
+          className="ticket-search"
+          type="text"
+          placeholder="Search tickets"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
+        <button onClick={() => setPage("create")}>Create Ticket</button>
+      </div>
       {page === "tickets" && (
         <TicketList
-          tickets={tickets}
+          tickets={filteredTickets}
           onDeleteTicket={handleDeleteTicket}
           onEditTicket={handleEditTicket}
         />

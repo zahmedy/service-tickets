@@ -37,7 +37,6 @@ function TicketCreate({ onDone }: createProps) {
     const resp = await createTicket(newTicket);
 
     if (resp) {
-      alert("Ticket Created!");
       onDone();
     }
   }
@@ -83,7 +82,7 @@ function TicketCreate({ onDone }: createProps) {
             onChange={(event) => setUsername(event.target.value)}
           />
 
-          <button type="submit">Create Ticket</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </>

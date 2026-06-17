@@ -58,7 +58,6 @@ function TicketEdit({ ticketID, onDone }: TicketEditProps) {
     const resp = await updateTicket(newTicket);
 
     if (resp) {
-      alert("Ticket updated!");
       onDone();
     }
   }
