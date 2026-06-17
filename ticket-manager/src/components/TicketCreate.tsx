@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createTicket } from "../services/tickets";
 
 function TicketCreate() {
   const [title, setTitle] = useState("");
@@ -7,7 +8,7 @@ function TicketCreate() {
   const [priority, setPriority] = useState("Low");
   const [username, setUsername] = useState("");
 
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const newTicket = {
@@ -18,7 +19,11 @@ function TicketCreate() {
       username,
     };
 
-    console.log("create ticket", newTicket);
+    const resp = await createTicket(newTicket);
+
+    if (resp) {
+      alert("Ticket Created!");
+    }
   }
 
   return (
