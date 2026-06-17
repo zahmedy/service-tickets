@@ -21,6 +21,18 @@ export async function deleteTicket(id: number): Promise<void> {
   }
 }
 
+export async function getTicket(ticketId: number) {
+  const response = await fetch(`/api/tickets/${ticketId}`)
+
+  if (!response.ok) {
+    throw new Error("Could not find ticket");
+  }
+
+  const ticket = await response.json();
+
+  return ticket;
+}
+
 export async function createTicket(ticket: CreateTicketInput) {
   const response = await fetch(`/api/tickets`, {
     method: "POST",
@@ -30,6 +42,20 @@ export async function createTicket(ticket: CreateTicketInput) {
 
   if (!response.ok) {
     throw new Error("Could not create ticket");
+  }
+
+  return { success: true}
+}
+
+export async function updateTicket(ticket: Ticket) {
+  const response = await fetch(`/api/tickets/${ticket.id}`, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(ticket)
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not update ticket");
   }
 
   return { success: true}

@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { createTicket } from "../services/tickets";
 
-function TicketCreate() {
+type createProps = {
+  onDone: () => void;
+};
+
+function TicketCreate({ onDone }: createProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("New");
@@ -34,6 +38,7 @@ function TicketCreate() {
 
     if (resp) {
       alert("Ticket Created!");
+      onDone();
     }
   }
 
