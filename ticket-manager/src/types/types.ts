@@ -7,3 +7,5 @@ export type Ticket = {
   username: string;
   created: string;
 };
+
+export type CreateTicketInput = Omit<Ticket, "id" | "created">;

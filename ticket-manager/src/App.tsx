@@ -24,6 +24,12 @@ function App() {
   }, []);
 
   async function handleDeleteTicket(id: number) {
+    const confirmed = window.confirm("Delte this ticket?");
+
+    if (!confirmed) {
+      return;
+    }
+
     try {
       await deleteTicket(id);
 
@@ -53,6 +59,11 @@ function App() {
         />
       )}
       {page === "create" && <TicketCreate />}
+      <TicketList
+        tickets={tickets}
+        onDeleteTicket={handleDeleteTicket}
+        onEditTicket={handleEditTicket}
+      />
     </div>
   );
 }

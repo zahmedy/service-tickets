@@ -11,12 +11,23 @@ function TicketCreate() {
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    if (!title || !username) {
+      alert("Title and username are required!");
+      return;
+    }
+
+    const confirmed = window.confirm("Create this ticket?");
+
+    if (!confirmed) {
+      return;
+    }
+
     const newTicket = {
-      title,
-      description,
-      status,
-      priority,
-      username,
+      title: title,
+      description: description,
+      status: status,
+      priority: priority,
+      username: username,
     };
 
     const resp = await createTicket(newTicket);

@@ -1,5 +1,5 @@
 // ticket-manager/src/services/tickets.ts
-import type { Ticket } from "../types/types";
+import type { CreateTicketInput, Ticket } from "../types/types";
 
 export async function getTickets(): Promise<Ticket[]> {
   const response = await fetch("/api/tickets");
@@ -21,7 +21,7 @@ export async function deleteTicket(id: number): Promise<void> {
   }
 }
 
-export async function createTicket(ticket) {
+export async function createTicket(ticket: CreateTicketInput) {
   const response = await fetch(`/api/tickets`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
