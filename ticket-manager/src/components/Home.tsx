@@ -1,7 +1,13 @@
-function Home() {
+type HomeProps = {
+  onOpenTickets: () => void;
+};
+
+function Home({ onOpenTickets }: HomeProps) {
   return (
     <div>
-      <h1>Welcome to Z-Tickets!</h1>
+      <button onClick={onOpenTickets} className="header-button">
+        Welcome to Z-Tickets!
+      </button>
     </div>
   );
 }

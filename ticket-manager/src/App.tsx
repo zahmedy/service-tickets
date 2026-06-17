@@ -5,6 +5,7 @@ import TicketList from "./components/TicketList";
 import type { Ticket } from "./types/types";
 import { getTickets, deleteTicket } from "./services/tickets";
 import Home from "./components/Home";
+import TicketCreate from "./components/TicketCreate";
 
 function App() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -38,15 +39,21 @@ function App() {
     console.log("editing");
   }
 
+  const [page, setPage] = useState<"home" | "tickets" | "create">("home");
+
   return (
-    <>
-      <Home />
-      <TicketList
-        tickets={tickets}
-        onDeleteTicket={handleDeleteTicket}
-        onEditTicket={handleEditTicket}
-      />
-    </>
+    <div>
+      <Home onOpenTickets={() => setPage("tickets")} />
+      <button onClick={() => setPage("create")}>Create Ticket</button>
+      {page === "tickets" && (
+        <TicketList
+          tickets={tickets}
+          onDeleteTicket={handleDeleteTicket}
+          onEditTicket={handleEditTicket}
+        />
+      )}
+      {page === "create" && <TicketCreate />}
+    </div>
   );
 }
 
