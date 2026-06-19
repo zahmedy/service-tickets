@@ -154,6 +154,21 @@ button:not(.brand-link):hover {
     background 0.16s ease;
 }
 
+.ticket-filter {
+  width: 50%;
+  min-height: 44px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #0f172a;
+  outline: none;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    background 0.16s ease;
+}
+
 .ticket-search:focus {
   border-color: #1f4ed8;
   background: #ffffff;

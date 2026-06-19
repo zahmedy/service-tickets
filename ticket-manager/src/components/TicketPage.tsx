@@ -7,15 +7,19 @@ import { Link, useNavigate } from "react-router";
 export function TicketPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("Any");
   const navigate = useNavigate();
 
-  const lowerSearch = search.toLowerCase();
-  const filteredTickets = tickets.filter(
-    (ticket) =>
-      ticket.title.toLowerCase().includes(lowerSearch) ||
-      ticket.description.toLowerCase().includes(lowerSearch) ||
-      ticket.username.toLowerCase().includes(lowerSearch),
-  );
+  const SearchedTickets = tickets.filter((ticket) => {
+    const matchsearch =
+      ticket.title.toLowerCase().includes(search.toLowerCase()) ||
+      ticket.description.toLowerCase().includes(search.toLowerCase()) ||
+      ticket.username.toLowerCase().includes(search.toLowerCase());
+
+    const matchfilter = ticket.status === status || "Any" === status;
+
+    return matchsearch && matchfilter;
+  });
 
   useEffect(() => {
     async function loadTickets() {
@@ -51,6 +55,7 @@ export function TicketPage() {
   function handleEditTicket(id: number) {
     navigate(`/tickets/${id}/edit`);
   }
+
   return (
     <section className="ticket-page">
       <div className="ticket-page-header">
@@ -64,6 +69,15 @@ export function TicketPage() {
       </div>
 
       <div className="ticket-toolbar">
+        <select
+          onChange={(event) => setStatus(event.target.value)}
+          className="ticket-filter"
+        >
+          <option value="Any">Any</option>
+          <option value="New">New</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Done">Done</option>
+        </select>
         <input
           className="ticket-search"
           type="text"
@@ -72,13 +86,13 @@ export function TicketPage() {
           onChange={(event) => setSearch(event.target.value)}
         />
         <p className="ticket-count">
-          {filteredTickets.length}{" "}
-          {filteredTickets.length === 1 ? "ticket" : "tickets"}
+          {SearchedTickets.length}{" "}
+          {SearchedTickets.length === 1 ? "ticket" : "tickets"}
         </p>
       </div>
 
       <TicketList
-        tickets={filteredTickets}
+        tickets={SearchedTickets}
         onDeleteTicket={handleDeleteTicket}
         onEditTicket={handleEditTicket}
       />
