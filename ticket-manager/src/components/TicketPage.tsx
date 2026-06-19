@@ -95,7 +95,7 @@ export function TicketPage() {
       <div className="ticket-toolbar">
         <select
           onChange={(event) => setSortBy(event.target.value)}
-          className="ticket-filter"
+          className="ticket-sort"
         >
           <option value="newest">newest first</option>
           <option value="oldest">oldest first</option>
