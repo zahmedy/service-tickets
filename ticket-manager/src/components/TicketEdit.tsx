@@ -8,7 +8,7 @@ export type TicketEditProps = {
 };
 
 function TicketEdit({ ticketID, onDone }: TicketEditProps) {
-  const [id, setId] = useState(ticketID);
+  const [id, setID] = useState(ticketID);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("New");
@@ -20,6 +20,7 @@ function TicketEdit({ ticketID, onDone }: TicketEditProps) {
     async function loadTicket() {
       const ticket = await getTicket(ticketID);
 
+      setID(ticket.id);
       setTitle(ticket.title);
       setDescription(ticket.description);
       setStatus(ticket.status);

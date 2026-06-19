@@ -13,7 +13,10 @@ function TicketList({
   onEditTicket,
 }: TicketCardProps) {
   return (
-    <div>
+    <div className="ticket-list">
+      {tickets.length === 0 && (
+        <div className="ticket-empty">No tickets match your search.</div>
+      )}
       {tickets.map((ticket) => (
         <TicketCard
           key={ticket.id}
