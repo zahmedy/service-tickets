@@ -2,19 +2,19 @@ import type { Ticket } from "../types/types";
 import { useEffect, useState } from "react";
 import { getTickets, deleteTicket } from "../services/tickets";
 import TicketList from "./TicketList";
-import { Link, Route } from "react-router";
-import TicketEdit from "./TicketEdit";
+import { Link, useNavigate } from "react-router";
 
 export function TicketPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [ticketId, setTicketId] = useState(0);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
+  const lowerSearch = search.toLowerCase();
   const filteredTickets = tickets.filter(
     (ticket) =>
-      ticket.title.toLowerCase().includes(search.toLowerCase()) ||
-      ticket.description.toLowerCase().includes(search.toLowerCase()) ||
-      ticket.username.toLowerCase().includes(search.toLowerCase()),
+      ticket.title.toLowerCase().includes(lowerSearch) ||
+      ticket.description.toLowerCase().includes(lowerSearch) ||
+      ticket.username.toLowerCase().includes(lowerSearch),
   );
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function TicketPage() {
   }, []);
 
   async function handleDeleteTicket(id: number) {
-    const confirmed = window.confirm("Delte this ticket?");
+    const confirmed = window.confirm("Delete this ticket?");
 
     if (!confirmed) {
       return;
@@ -48,14 +48,8 @@ export function TicketPage() {
     }
   }
 
-  async function handleEditTicket(id: number) {
-    <Route
-      path="/ticket/id/edit"
-      element={
-        <TicketEdit ticketID={ticketId} onDone={() => console.log("Done")} />
-      }
-    />;
-    setTicketId(id);
+  function handleEditTicket(id: number) {
+    navigate(`/tickets/${id}/edit`);
   }
   return (
     <section className="ticket-page">

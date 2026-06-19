@@ -1,7 +1,7 @@
 import TicketCard from "./TicketCard";
 import type { Ticket } from "../types/types";
 
-type TicketCardProps = {
+type TicketListProps = {
   tickets: Ticket[];
   onDeleteTicket: (id: number) => void;
   onEditTicket: (id: number) => void;
@@ -11,7 +11,7 @@ function TicketList({
   tickets,
   onDeleteTicket,
   onEditTicket,
-}: TicketCardProps) {
+}: TicketListProps) {
   return (
     <div className="ticket-list">
       {tickets.length === 0 && (

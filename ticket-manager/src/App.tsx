@@ -1,10 +1,12 @@
 // ticket-manager/src/App.tsx
-import { Link, Routes, Route } from "react-router";
+import { Link, Routes, Route, useNavigate } from "react-router";
 import "./App.css";
 import TicketCreate from "./components/TicketCreate";
 import { TicketPage } from "./components/TicketPage";
+import TicketEdit from "./components/TicketEdit";
 
 function App() {
+  const navigate = useNavigate();
   return (
     <main className="app-shell">
       <header className="app-header">
@@ -17,7 +19,11 @@ function App() {
         <Route path="/" element={<TicketPage />} />
         <Route
           path="/create"
-          element={<TicketCreate onDone={() => console.log("Done")} />}
+          element={<TicketCreate onDone={() => navigate("/")} />}
+        />
+        <Route
+          path="/tickets/:TicketId/edit"
+          element={<TicketEdit onDone={() => navigate("/")} />}
         />
       </Routes>
     </main>

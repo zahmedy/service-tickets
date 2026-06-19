@@ -1,14 +1,13 @@
 import { getTicket } from "../services/tickets";
 import { useState, useEffect } from "react";
 import { updateTicket } from "../services/tickets";
+import { useParams } from "react-router";
 
 export type TicketEditProps = {
-  ticketID: number;
   onDone: () => void;
 };
 
-function TicketEdit({ ticketID, onDone }: TicketEditProps) {
-  const [id, setID] = useState(ticketID);
+function TicketEdit({ onDone }: TicketEditProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("New");
@@ -16,11 +15,14 @@ function TicketEdit({ ticketID, onDone }: TicketEditProps) {
   const [username, setUsername] = useState("");
   const [created, setCreated] = useState("");
 
+  const { TicketId } = useParams();
+  const ticketId = Number(TicketId);
+  console.log(ticketId);
+
   useEffect(() => {
     async function loadTicket() {
-      const ticket = await getTicket(ticketID);
+      const ticket = await getTicket(ticketId);
 
-      setID(ticket.id);
       setTitle(ticket.title);
       setDescription(ticket.description);
       setStatus(ticket.status);
@@ -30,7 +32,7 @@ function TicketEdit({ ticketID, onDone }: TicketEditProps) {
     }
 
     loadTicket();
-  }, [ticketID]);
+  }, [ticketId]);
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,7 +49,7 @@ function TicketEdit({ ticketID, onDone }: TicketEditProps) {
     }
 
     const newTicket = {
-      id,
+      id: ticketId,
       title: title,
       description: description,
       status: status,
