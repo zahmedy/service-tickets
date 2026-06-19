@@ -8,6 +8,7 @@ export function TicketPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("Any");
+  const [sortBy, setSortBy] = useState("Default");
   const navigate = useNavigate();
 
   const SearchedTickets = tickets.filter((ticket) => {
@@ -19,6 +20,29 @@ export function TicketPage() {
     const matchfilter = ticket.status === status || "Any" === status;
 
     return matchsearch && matchfilter;
+  });
+
+  const priorityMap: Record<string, number> = {
+    High: 1,
+    Medium: 2,
+    Low: 3,
+  };
+
+  const visibleTickets = SearchedTickets.toSorted((a, b) => {
+    if (sortBy === "newest") {
+      return new Date(b.created).getTime() - new Date(a.created).getTime();
+    }
+    if (sortBy === "oldest") {
+      return new Date(a.created).getTime() - new Date(b.created).getTime();
+    }
+    if (sortBy === "high-priority") {
+      return priorityMap[a.priority] - priorityMap[b.priority];
+    }
+    if (sortBy === "low-priority") {
+      return priorityMap[b.priority] - priorityMap[a.priority];
+    }
+
+    return 0;
   });
 
   useEffect(() => {
@@ -70,6 +94,15 @@ export function TicketPage() {
 
       <div className="ticket-toolbar">
         <select
+          onChange={(event) => setSortBy(event.target.value)}
+          className="ticket-filter"
+        >
+          <option value="newest">newest first</option>
+          <option value="oldest">oldest first</option>
+          <option value="high-priority">high to low priority</option>
+          <option value="low-priority">low to high priority</option>
+        </select>
+        <select
           onChange={(event) => setStatus(event.target.value)}
           className="ticket-filter"
         >
@@ -86,13 +119,13 @@ export function TicketPage() {
           onChange={(event) => setSearch(event.target.value)}
         />
         <p className="ticket-count">
-          {SearchedTickets.length}{" "}
-          {SearchedTickets.length === 1 ? "ticket" : "tickets"}
+          {visibleTickets.length}{" "}
+          {visibleTickets.length === 1 ? "ticket" : "tickets"}
         </p>
       </div>
 
       <TicketList
-        tickets={SearchedTickets}
+        tickets={visibleTickets}
         onDeleteTicket={handleDeleteTicket}
         onEditTicket={handleEditTicket}
       />
