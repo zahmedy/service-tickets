@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+/// <reference types="vitest" />
 
-// https://vite.dev/config/
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react";
+
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -9,4 +10,7 @@ export default defineConfig({
       "/api": "http://localhost:3000",
     },
   },
-})
+  test: {
+    environment: "jsdom",
+  },
+});
